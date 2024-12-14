@@ -98,7 +98,7 @@ function InvoiceUploader() {
         const invoiceHtml = `
       <div style="font-family: Arial, sans-serif; background-color: #fff; padding: 20px; margin: 20px auto; max-width: 800px; border: 1px solid #ddd;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            
+                ${selectedCompany === 'wtl' ? `<img src="/wtl.jpeg" style="height:100px; width:130px" alt="wtl" />` : `<img src="/channels4_profile.jpg" style="height:100px; width:130px" alt="aimcab" />`}
                 <h1 style="margin: 0; font-size: 24px; color: #333;">Invoice</h1>
                 <strong style="color: #333;">Date: ${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}</strong>
             

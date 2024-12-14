@@ -14,11 +14,11 @@ const CreateInvoice = () => {
 
     });
 
-
+    console.log("submit button click")
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        
         if (typeof window !== undefined) {
 
             const res = await axios.get('/api/id');
@@ -27,7 +27,7 @@ const CreateInvoice = () => {
             const invoiceHtml = `
       <div style="font-family: Arial, sans-serif; background-color: #fff; padding: 20px; margin: 20px auto; max-width: 800px; border: 1px solid #ddd;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            
+                ${data.companyType === 'wtl' ? `<img src="/wtl.jpeg" style="height:100px; width:130px" alt="wtl" />` : `<img src="/channels4_profile.jpg" style="height:100px; width:130px" alt="aimcab" />`}
                 <h1 style="margin: 0; font-size: 24px; color: #333;">Invoice</h1>
                 <strong style="color: #333;">Date: ${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}</strong>
             
@@ -133,12 +133,12 @@ const CreateInvoice = () => {
             // Create a temporary div to hold the HTML
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = invoiceHtml;
-
+            
             // Generate PDF using html2pdf.js
             const html2pdf = (await import('html2pdf.js')).default;
             html2pdf().from(tempDiv).save('invoice.pdf');
 
-
+                
             await axios.post("/api/id", { companyType: data.companyType, count: data.companyType === 'wtl' ? id.wtlId + 1 : id.aimcabId + 1 });
 
         }
@@ -217,7 +217,7 @@ const CreateInvoice = () => {
                             className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                     </div>
-
+                    
                     {/* Journey Type */}
                     <div>
                         <label htmlFor="jtype" className="block text-sm font-medium text-gray-600">
