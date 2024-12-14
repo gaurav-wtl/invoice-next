@@ -1,10 +1,8 @@
 "use client"
 
-import React, { useRef, useState } from 'react';
-// @ts-ignore
-import html2pdf from 'html2pdf.js';
-import * as XLSX from 'xlsx';
+import React, { useState } from 'react';
 import axios from 'axios';
+
 
 const CreateInvoice = () => {
     const [data, setData] = useState({
@@ -13,26 +11,25 @@ const CreateInvoice = () => {
         distance: "", startDate: "", startTime: "", endDate: "", vehicleType: "", baseFare: "", driverAllownce: "", toll: "",
         serviceCharge: "", subtotal: "", paidAmount: "", companyType: "",        // For WTL or AimCab selection
         invoiceFor: "",         // For passenger or organization selection
-        bookId: localStorage.getItem("bookid") || 0
+
     });
-    const [date, setDate] = useState(new Date().getDate());
-    const [month, setMonth] = useState(new Date().getMonth());
-    const [year, setYear] = useState(new Date().getFullYear());
 
-    const invoiceRef = useRef(null);
 
-    const handleFormSubmit = async (e: any) => {
+
+    const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const res = await axios.get('/api/id');
-        const { id } = res.data;
+        if (typeof window !== undefined) {
 
-        const invoiceHtml = `
+            const res = await axios.get('/api/id');
+            const { id } = res.data;
+
+            const invoiceHtml = `
       <div style="font-family: Arial, sans-serif; background-color: #fff; padding: 20px; margin: 20px auto; max-width: 800px; border: 1px solid #ddd;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             
                 <h1 style="margin: 0; font-size: 24px; color: #333;">Invoice</h1>
-                <strong style="color: #333;">Date: ${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}</strong>
+                <strong style="color: #333;">Date: ${new Date().getDate()}/${new Date().getMonth() + 1}/${new Date().getFullYear()}</strong>
             
         </div>
         <hr style="background-color: gold; height: 10px; margin-top: 10px; margin-bottom: 10px;" />
@@ -47,21 +44,21 @@ const CreateInvoice = () => {
                 Invoice No: ${data.companyType === 'wtl' ? `${id?.wtlId + 1}/2025-26` : `A${id?.aimcabId + 1}/2025-26`}
             </div>
             ${data.companyType === 'wtl' ?
-                `<div style="width: 48%; text-align: right; font-size: 14px; line-height: 1.6; color: #333;">
+                    `<div style="width: 48%; text-align: right; font-size: 14px; line-height: 1.6; color: #333;">
                   <strong style="font-size: 16px;">WTL Tourism Pvt. Ltd.</strong><br />
                   Mobile: 9325578091<br />
                   Email: contact@worldtriplink.com<br />
                   Website: worldtriplink.com<br />
                   GST No.: 27AADCW8531C1ZD
               </div>` :
-                `<div style="width: 48%; text-align: right; font-size: 14px; line-height: 1.6; color: #333;">
+                    `<div style="width: 48%; text-align: right; font-size: 14px; line-height: 1.6; color: #333;">
                   <strong style="font-size: 16px;">AimCab Pvt. Ltd.</strong><br />
                   Mobile: 9130030054<br />
                   Email: aimcab@aimcabbooking.com<br />
                   Website: aimcabbooking.com<br />
                   GST No.: 27AATCA5944R1ZL
               </div>`
-            }
+                }
         </div>
 
         <div style="padding-top: 20px;">
@@ -133,15 +130,20 @@ const CreateInvoice = () => {
     </div>
     `;
 
-        // Generate PDF using html2pdf.js
-        html2pdf().from(invoiceHtml).save('invoice.pdf');
+            // Create a temporary div to hold the HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = invoiceHtml;
+
+            // Generate PDF using html2pdf.js
+            const html2pdf = (await import('html2pdf.js')).default;
+            html2pdf().from(tempDiv).save('invoice.pdf');
 
 
-        await axios.post("/api/id", { companyType: data.companyType, count: data.companyType === 'wtl' ? id.wtlId + 1 : id.aimcabId + 1 });
+            await axios.post("/api/id", { companyType: data.companyType, count: data.companyType === 'wtl' ? id.wtlId + 1 : id.aimcabId + 1 });
+
+        }
 
     }
-
-
 
     return (
         <>

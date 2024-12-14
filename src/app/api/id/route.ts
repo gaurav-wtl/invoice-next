@@ -44,25 +44,36 @@ export async function PATCH(request: Request) {
     // Return the updated ID document as the response
     return NextResponse.json({ updatedId });
 
-  } catch (error: any) {
-    // Error handling for database or other issues
-    console.error("Error occurred:", error.message);
-    return NextResponse.json({ message: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    // Ensure the error is an instance of Error before accessing properties
+    if (error instanceof Error) {
+      console.error("Error occurred:", error.message);
+      return NextResponse.json({ message: error.message }, { status: 500 });
+    } else {
+      console.error("Unexpected error:", error);
+      return NextResponse.json({ message: 'An unexpected error occurred' }, { status: 500 });
+    }
   }
 }
 
 
 
-export async function GET(request: Request){
+export async function GET(){
   try {
     await connectDB();
 
     const id= await ID.findOne({});
 
     return NextResponse.json({id})
-  } catch (error:any) {
-    console.error("Error occurred:", error.message);
-    return NextResponse.json({ message: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    // Ensure the error is an instance of Error before accessing properties
+    if (error instanceof Error) {
+      console.error("Error occurred:", error.message);
+      return NextResponse.json({ message: error.message }, { status: 500 });
+    } else {
+      console.error("Unexpected error:", error);
+      return NextResponse.json({ message: 'An unexpected error occurred' }, { status: 500 });
+    }
   }
 }
 
@@ -95,9 +106,15 @@ export async function POST(request:Request){
     // Perform the update operation
     await ID.updateOne({}, updateField);
     return NextResponse.json({ updateField });
-  } catch (error:any) {
-    console.error("Error occurred:", error.message);
-    return NextResponse.json({ message: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    // Ensure the error is an instance of Error before accessing properties
+    if (error instanceof Error) {
+      console.error("Error occurred:", error.message);
+      return NextResponse.json({ message: error.message }, { status: 500 });
+    } else {
+      console.error("Unexpected error:", error);
+      return NextResponse.json({ message: 'An unexpected error occurred' }, { status: 500 });
+    }
   }
 }
 
