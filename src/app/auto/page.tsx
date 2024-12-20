@@ -84,6 +84,7 @@ function InvoiceUploader() {
           driverAllownce: `${data['DA / TA']}` || -1,
           toll: data[`Toll, Tax & Parking`] || -1,
           finalAmount: data['Final Payment'] || -1,
+          companyAddress: data['Company address'] || "NA",
           serviceCharge: "5%",
           subtotal: "",
           paidAmount: "",
@@ -112,6 +113,7 @@ function InvoiceUploader() {
                 ${invoiceData.companyEmail}<br />
                 ${invoiceData.companyMobile}<br />
                 ${invoiceData.companyGST}<br />
+                ${invoiceData.companyAddress}<br />
                 Invoice No: ${selectedCompany === 'wtl' ? `${id?.wtlId + (index + 1)}/2025-26` : `A${id?.aimcabId + (index + 1)}/2025-26`}
             </div>
             ${selectedCompany === 'wtl' ?

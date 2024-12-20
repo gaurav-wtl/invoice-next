@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const CreateInvoice = () => {
     const [data, setData] = useState({
-        passengerName: "", journeyType: "", companyName: "",
+        passengerName: "", journeyType: "", companyName: "",companyAddress: "",
         companyEmail: "", companyGST: "", companyMobile: "", pickupLocation: "", dropLocation: "",
         distance: "", startDate: "", startTime: "", endDate: "", vehicleType: "", baseFare: "", driverAllownce: "", toll: "",
         serviceCharge: "", subtotal: "", paidAmount: "", companyType: "",        // For WTL or AimCab selection
@@ -41,6 +41,7 @@ const CreateInvoice = () => {
                 ${data.companyEmail}<br />
                 ${data.companyMobile}<br />
                 ${data.companyGST}<br />
+                ${data.companyAddress}<br />
                 Invoice No: ${data.companyType === 'wtl' ? `${id?.wtlId + 1}/2025-26` : `A${id?.aimcabId + 1}/2025-26`}
             </div>
             ${data.companyType === 'wtl' ?
@@ -211,6 +212,18 @@ const CreateInvoice = () => {
                             name='cGST'
                             value={data.companyGST}
                             onChange={(e) => setData({ ...data, companyGST: e.target.value })}
+                            className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                    </div>
+
+                    {/*company address */}
+                    <div>
+                        <label htmlFor="companyAddress" className="block text-sm font-medium text-gray-600">Company Address</label>
+                        <input
+                            type="companyAddress"
+                            name='cGST'
+                            value={data.companyAddress}
+                            onChange={(e) => setData({ ...data, companyAddress: e.target.value })}
                             className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                     </div>

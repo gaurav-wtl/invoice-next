@@ -39,7 +39,6 @@ export async function PATCH(request: Request) {
 
     // Fetch the updated document to return in the response
     const updatedId = await ID.findOne({});
-    console.log("Updated ID document:", updatedId);
 
     // Return the updated ID document as the response
     return NextResponse.json({ updatedId });
@@ -83,7 +82,6 @@ export async function POST(request:Request){
     const body = await request.json();
     const {companyType, count} = body;
     const id = await ID.findOne({});
-    console.log("Fetched ID document:", id);
 
     if (!id) {
       // Handle case where no document is found in the database
