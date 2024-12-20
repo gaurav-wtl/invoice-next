@@ -155,10 +155,7 @@ function InvoiceUploader() {
                     <td style="padding: 8px;"><strong>Pickup Date:</strong></td>
                     <td style="padding: 8px;">${invoiceData.startDate}</td>
                 </tr>
-                <tr>
-                    <td style="padding: 8px;"><strong>Pickup Time:</strong></td>
-                    <td style="padding: 8px;">${invoiceData.startTime}</td>
-                </tr>
+                
             </table>
         </div>
 
