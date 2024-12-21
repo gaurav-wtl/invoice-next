@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const CreateInvoice = () => {
     const [data, setData] = useState({
-        passengerName: "", journeyType: "", companyName: "",companyAddress: "",
+        passengerName: "", journeyType: "", companyName: "", companyAddress: "",
         companyEmail: "", companyGST: "", companyMobile: "", pickupLocation: "", dropLocation: "",
         distance: "", startDate: "", startTime: "", endDate: "", vehicleType: "", baseFare: "", driverAllownce: "", toll: "",
         serviceCharge: "", subtotal: "", paidAmount: "", companyType: "",        // For WTL or AimCab selection
@@ -18,7 +18,7 @@ const CreateInvoice = () => {
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         if (typeof window !== undefined) {
 
             const res = await axios.get('/api/id');
@@ -35,31 +35,32 @@ const CreateInvoice = () => {
         <hr style="background-color: gold; height: 10px; margin-top: 10px; margin-bottom: 10px;" />
         
         <div style="padding-top: 20px; display: flex; justify-content: space-between;">
-            <div style="width: 48%; font-size: 14px; line-height: 1.6; color: #333;">
-                <strong style="font-size: 16px;">${data.companyName}</strong><br />
-                ${data.passengerName}<br />
-                ${data.companyEmail}<br />
-                ${data.companyMobile}<br />
-                ${data.companyGST}<br />
-                ${data.companyAddress}<br />
-                Invoice No: ${data.companyType === 'wtl' ? `${id?.wtlId + 1}/2025-26` : `A${id?.aimcabId + 1}/2025-26`}
-            </div>
-            ${data.companyType === 'wtl' ?
-                    `<div style="width: 48%; text-align: right; font-size: 14px; line-height: 1.6; color: #333;">
-                  <strong style="font-size: 16px;">WTL Tourism Pvt. Ltd.</strong><br />
-                  Mobile: 9325578091<br />
-                  Email: contact@worldtriplink.com<br />
-                  Website: worldtriplink.com<br />
-                  GST No.: 27AADCW8531C1ZD
-              </div>` :
-                    `<div style="width: 48%; text-align: right; font-size: 14px; line-height: 1.6; color: #333;">
-                  <strong style="font-size: 16px;">AimCab Pvt. Ltd.</strong><br />
-                  Mobile: 9130030054<br />
-                  Email: aimcab@aimcabbooking.com<br />
-                  Website: aimcabbooking.com<br />
-                  GST No.: 27AATCA5944R1ZL
-              </div>`
+        ${data.companyType === 'wtl' ?
+                    `<div style="width: 48%; text-align: left; font-size: 14px; line-height: 1.6; color: #333;">
+          <strong style="font-size: 16px;">WTL Tourism Pvt. Ltd.</strong><br />
+          <strong style="font-size: 16px;">Mobile : </strong>9325578091<br />
+          <strong style="font-size: 16px;">Email : </strong>contact@worldtriplink.com<br />
+          <strong style="font-size: 16px;">Website : </strong>worldtriplink.com<br />
+          <strong style="font-size: 16px;">GST NO. : </strong>27AADCW8531C1ZD
+      </div>` :
+                    `<div style="width: 48%; text-align: left; font-size: 14px; line-height: 1.6; color: #333;">
+          <strong style="font-size: 16px;">AimCab Pvt. Ltd.</strong><br />
+          <strong style="font-size: 16px;">Mobile : </strong>9130030054<br />
+          <strong style="font-size: 16px;">Email : </strong>aimcab@aimcabbooking.com<br />
+          <strong style="font-size: 16px;">Website : </strong>aimcabbooking.com<br />
+          <strong style="font-size: 16px;">GST NO. : </strong>27AATCA5944R1ZL
+      </div>`
                 }
+            <div style="width: 48%; font-size: 14px; text-align: right; line-height: 1.6; color: #333;">
+                <strong style="font-size: 16px;">${data.companyName}</strong><br />
+                <strong style="font-size: 16px;">${data.passengerName}</strong><br />
+                <strong style="font-size: 16px;">Email : </strong>${data.companyEmail}<br />
+                <strong style="font-size: 16px;">Mobile : </strong>${data.companyMobile}<br />
+                <strong style="font-size: 16px;">GST : </strong>${data.companyGST}<br />
+                <strong style="font-size: 16px;">ADDRESS : </strong>${data.companyAddress}<br />
+                <strong style="font-size: 16px;">Invoice No : </strong>${data.companyType === 'wtl' ? `${id?.wtlId + 1}/2025-26` : `A${id?.aimcabId + 1}/2025-26`}
+            </div>
+            
         </div>
 
         <div style="padding-top: 20px;">
@@ -131,12 +132,12 @@ const CreateInvoice = () => {
             // Create a temporary div to hold the HTML
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = invoiceHtml;
-            
+
             // Generate PDF using html2pdf.js
             const html2pdf = (await import('html2pdf.js')).default;
             html2pdf().from(tempDiv).save('invoice.pdf');
 
-                
+
             await axios.post("/api/id", { companyType: data.companyType, count: data.companyType === 'wtl' ? id.wtlId + 1 : id.aimcabId + 1 });
 
         }
@@ -227,7 +228,7 @@ const CreateInvoice = () => {
                             className="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                     </div>
-                    
+
                     {/* Journey Type */}
                     <div>
                         <label htmlFor="jtype" className="block text-sm font-medium text-gray-600">

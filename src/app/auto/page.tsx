@@ -107,31 +107,31 @@ function InvoiceUploader() {
         <hr style="background-color: gold; height: 10px; margin-top: 10px; margin-bottom: 10px;" />
         
         <div style="padding-top: 20px; display: flex; justify-content: space-between;">
-            <div style="width: 48%; font-size: 14px; line-height: 1.6; color: #333;">
+        ${selectedCompany === 'wtl' ?
+            `<div style="width: 48%; text-align: left; font-size: 14px; line-height: 1.6; color: #333;">
+              <strong style="font-size: 16px;">WTL Tourism Pvt. Ltd.</strong><br />
+              <strong style="font-size: 16px;">Mobile : </strong>9325578091<br />
+          <strong style="font-size: 16px;">Email : </strong>contact@worldtriplink.com<br />
+          <strong style="font-size: 16px;">Website : </strong>worldtriplink.com<br />
+          <strong style="font-size: 16px;">GST NO. : </strong>27AADCW8531C1ZD
+          </div>` :
+            `<div style="width: 48%; text-align: left; font-size: 14px; line-height: 1.6; color: #333;">
+              <strong style="font-size: 16px;">AimCab Pvt. Ltd.</strong><br />
+              <strong style="font-size: 16px;">Mobile : </strong>9130030054<br />
+          <strong style="font-size: 16px;">Email : </strong>aimcab@aimcabbooking.com<br />
+          <strong style="font-size: 16px;">Website : </strong>aimcabbooking.com<br />
+          <strong style="font-size: 16px;">GST NO. : </strong>27AATCA5944R1ZL
+          </div>`
+          }
+            <div style="width: 48%; text-align: right; font-size: 14px; line-height: 1.6; color: #333;">
                 <strong style="font-size: 16px;">${invoiceData.companyName}</strong><br />
                 <strong style="font-size: 16px;">${invoiceData.passengerName}</strong><br />
-                ${invoiceData.companyEmail}<br />
-                ${invoiceData.companyMobile}<br />
-                ${invoiceData.companyGST}<br />
-                ${invoiceData.companyAddress}<br />
-                Invoice No: ${selectedCompany === 'wtl' ? `${id?.wtlId + (index + 1)}/2025-26` : `A${id?.aimcabId + (index + 1)}/2025-26`}
+                <strong style="font-size: 16px;">Email : </strong>${invoiceData.companyEmail}<br />
+                <strong style="font-size: 16px;">Mobile : </strong>${invoiceData.companyMobile}<br />
+                <strong style="font-size: 16px;">GST : </strong>${invoiceData.companyGST}<br />
+                <strong style="font-size: 16px;">Address : </strong>${invoiceData.companyAddress}<br />
+                <strong style="font-size: 16px;">Invoice No : </strong>${selectedCompany === 'wtl' ? `${id?.wtlId + (index + 1)}/2025-26` : `A${id?.aimcabId + (index + 1)}/2025-26`}
             </div>
-            ${selectedCompany === 'wtl' ?
-            `<div style="width: 48%; text-align: right; font-size: 14px; line-height: 1.6; color: #333;">
-                <strong style="font-size: 16px;">WTL Tourism Pvt. Ltd.</strong><br />
-                Mobile: 9325578091<br />
-                Email: contact@worldtriplink.com<br />
-                Website: worldtriplink.com<br />
-                GST No.: 27AADCW8531C1ZD
-            </div>` :
-            `<div style="width: 48%; text-align: right; font-size: 14px; line-height: 1.6; color: #333;">
-                <strong style="font-size: 16px;">AimCab Pvt. Ltd.</strong><br />
-                Mobile: 9130030054<br />
-                Email: aimcab@aimcabbooking.com<br />
-                Website: aimcabbooking.com<br />
-                GST No.: 27AATCA5944R1ZL
-            </div>`
-          }
         </div>
 
         <div style="padding-top: 20px;">
