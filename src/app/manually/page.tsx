@@ -38,7 +38,7 @@ const CreateInvoice = () => {
         ${data.companyType === 'wtl' ?
                     `<div style="width: 48%; text-align: left; font-size: 14px; line-height: 1.6; color: #333;">
           <strong style="font-size: 16px;">WTL Tourism Pvt. Ltd.</strong><br />
-          <strong style="font-size: 16px;">Mobile : </strong>9325578091<br />
+          <strong style="font-size: 16px;">Mobile : </strong>9730545491<br />
           <strong style="font-size: 16px;">Email : </strong>contact@worldtriplink.com<br />
           <strong style="font-size: 16px;">Website : </strong>worldtriplink.com<br />
           <strong style="font-size: 16px;">GST NO. : </strong>27AADCW8531C1ZD
